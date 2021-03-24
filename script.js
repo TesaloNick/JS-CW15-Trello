@@ -10,7 +10,6 @@ class TreloData {
     get card() {
         return this.cards
     }
-
     set task(task) {
         this.tasks.push(task)
     }
