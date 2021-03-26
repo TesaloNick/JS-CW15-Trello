@@ -8,12 +8,22 @@
 }
 #cards > div{
     display: grid;
+    align-content: start;
     text-align: center;
     width: 300px;
     border: 1px solid black;
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
+    background-color: lightcoral;
+}
+#cards > div > div{
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 2px;
+    margin: 10px;
+    background-color: rgb(227, 252, 0);
+    cursor: pointer;
 }
 #cards > div > input, #cards > div > button{
     border: 1px solid black;
@@ -26,4 +36,49 @@
     margin: 10px; 
     border: 1px solid black;
     border-radius: 5px;
+}
+button{
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    background-color: rgb(162, 122, 255);
+}
+/*MODAL WINDOW*/ 
+.show {
+    opacity: 1 !important;
+}
+
+.modal-container {
+    opacity: 0;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: #0000004d;
+    top: 0;
+    left: 0;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+}
+.modal-block {
+    height: 70vh;
+    width: 70vw;
+    background: white;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+.modal-container button{ 
+    position: absolute;
+    top: 16vh;
+    right: 16vw;
+}
+.modal-block img {
+   max-width: 90%;
+   max-height: 66vh;
+}
+.delete-btn{
+    top: 5px !important;
+    left: 5px;
 }
