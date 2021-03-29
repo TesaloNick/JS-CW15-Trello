@@ -42,6 +42,10 @@ button{
     font-size: 16px;
     font-weight: 700;
     background-color: rgb(162, 122, 255);
+    padding: 5px;
+    margin: 10px; 
+    border: 1px solid black;
+    border-radius: 5px;
 }
 /*MODAL WINDOW*/ 
 .show {
@@ -62,6 +66,7 @@ button{
     transition: .5s;
 }
 .modal-block {
+    position: relative;
     height: 70vh;
     width: 70vw;
     background: white;

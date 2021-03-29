@@ -1,27 +1,35 @@
-import {setCookie} from 'cookie.js'
+import {setCookie} from './cookie.js'
+
 
 class TreloData {
     constructor(board) {
         this.board = board;
+
+        //устанавливаем данные из localStorage по умолчанию
         this.tasks = JSON.parse(localStorage.getItem('tasks')) || []
         this.cards = JSON.parse(localStorage.getItem('cards')) || []
+        
     }
-    removeTask(id){
+
+    removeTask(id) {
         delete this.tasks[id]
-        localStorage.setItem('tasks', JSON.stringify(this.tasks))  
+        localStorage.setItem('tasks', JSON.stringify(this.tasks))
     }
+
     set card(card) {
         //записываем новый объект(данные Колонки) в массив
         this.cards.push({name: card, id: this.cards.length})
+
         //обновляем массив в localStorage
         localStorage.setItem('cards', JSON.stringify(this.cards))
     }
     get card() {
         return this.cards
     }
+
     set task(task) {
         this.tasks.push({...task, id: this.tasks.length})
-        localStorage.setItem('tasks', JSON.stringify(this.tasks))    
+        localStorage.setItem('tasks', JSON.stringify(this.tasks))
     }
     get task() {
         return this.tasks
@@ -32,6 +40,7 @@ class TreloUI extends TreloData {
     constructor() {
         super()
     }
+
     modalWindow(taskId) {
         const closeMethod = () => {
             modalContainer.classList.remove('show')
@@ -45,7 +54,7 @@ class TreloUI extends TreloData {
             <div class="modal-block"> 
                 ${this.tasks[taskId].name}
             </div>
-        `      //удаляем модальное окно
+        `;
         const btnDelete = document.createElement('button')
         btnDelete.innerText = 'delete'
         btnDelete.classList.add('delete-btn')
@@ -54,16 +63,18 @@ class TreloUI extends TreloData {
             closeMethod()
             this.drawCards()
         })
+        //удаляем модальное окно
         const close = document.createElement('button')
         close.innerHTML = 'Close'
         close.addEventListener('click', closeMethod)
         modalContainer.appendChild(close) //добавляем кнопку в дом узел (модальное окно)
         document.body.appendChild(modalContainer) //добавляем модальное окно в тело документа
-         //находим в ДОМ появившийся блок и добавляем в него кнопку btnDelete
+        //находим в ДОМ появившийся блок и добавляем в него кнопку btnDelete
         document.querySelector('.modal-block').appendChild(btnDelete)
-        setTimeout(()=> {
-            modalContainer.classList.add('show')
+        setTimeout(() => {
+            modalContainer.classList.add('show') //делаем задержку чтобы браузер понял что мы добавили класс show не срау с элементом
         }, 100)
+        
     }
 
     drawCards() {
@@ -74,15 +85,14 @@ class TreloUI extends TreloData {
             const addTaskBtn = document.createElement('button')
             addTaskBtn.innerHTML = '+ add Task'
             const input = document.createElement('input')
-            input.setAttribute('placeholder', 'Вводить тут')
+            input.setAttribute('placeholder', 'писать сюда')
             addTaskBtn.addEventListener('click', () => {
-                // console.dir(event.currentTarget.parentNode.title)
                 this.task = {
                     name: input.value,
                     cardId: item.id,
                     status: 'gray',
                     description: ''
-                }
+                }                
                 this.drawCards()
             })
             
@@ -93,7 +103,7 @@ class TreloUI extends TreloData {
                 const taskUI = document.createElement('div')
                 taskUI.classList.add('task')
                 taskUI.innerHTML = task.name
-                // создаем модальное окно на клик по таске
+                //создаем модальное окно на клик по таске
                 taskUI.addEventListener('click', () => this.modalWindow(task.id))
                 card.appendChild(taskUI)
             })
